@@ -1,0 +1,6 @@
+{
+  "name": "Remote Display Console",
+  "description": "Enterprise-grade high-performance cross-platform remote display and screen extension control console.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

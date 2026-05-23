@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Space Grotesk", sans-serif;
+
+  --color-brand-cyan: #06b6d4;
+  --color-brand-violet: #8b5cf6;
+  --color-brand-background: #090d16;
+  --color-brand-card: #111827;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #080c14;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Glowing container shadows */
+.glowing-display-cyan {
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.12);
+  transition: box-shadow 0.3s ease;
+}
+.glowing-display-cyan:hover {
+  box-shadow: 0 0 35px rgba(6, 182, 212, 0.25);
+}
+
+.glowing-display-violet {
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.12);
+  transition: box-shadow 0.3s ease;
+}
+.glowing-display-violet:hover {
+  box-shadow: 0 0 35px rgba(139, 92, 246, 0.25);
+}
+

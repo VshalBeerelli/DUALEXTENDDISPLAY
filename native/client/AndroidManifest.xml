@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aerodisplay.client">
+
+    <!-- Essential requirements for ultra low-latency Wi-Fi and network streams -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    
+    <!-- Power/hardware state overrides for maintaining zero packet dropping during benchmark display sessions -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- Feature assertions for high-performance GLES renders -->
+    <uses-feature android:name="android.hardware.opengles.a" android:required="true" />
+    <uses-feature android:glEsVersion="0x00030000" android:required="true" />
+
+    <application
+        android:allowBackup="false"
+        android:label="AeroDisplay Client"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        
+        <!-- Foreground receiver and stream presentation canvas activity -->
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|layoutDirection"
+            android:exported="true"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Dynamic low-latency service for processing and rendering RTP background network frames directly into surface buffers -->
+        <service
+            android:name=".DecoderService"
+            android:foregroundServiceType="mediaProjection"
+            android:exported="false" />
+    </application>
+</manifest>

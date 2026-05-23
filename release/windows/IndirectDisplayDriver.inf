@@ -1,0 +1,64 @@
+;
+; IndirectDisplayDriver.inf
+; UMDF 2.0 Indirect Display Driver installation manifest
+;
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = Monitor
+ClassGuid   = {4d36e96e-e325-11ce-bfc1-08002be10318}
+Provider    = %ProviderName%
+CatalogFile = IndirectDisplayDriver.cat
+DriverVer   = 05/23/2026,1.0.0
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir = 12,UMDF ; \Windows\System32\drivers\UMDF
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+AeroDisplayDriver.dll = 1,,
+
+[Manufacturer]
+%ManufacturerName% = AeroDevice,NTamd64
+
+[AeroDevice.NTamd64]
+%DeviceName% = IndirectDisplayDriver_Install, Root\AeroDisplay
+
+[IndirectDisplayDriver_Install]
+CopyFiles = IndirectDisplayDriver_CopyFiles
+AddReg    = IndirectDisplayDriver_AddReg
+
+[IndirectDisplayDriver_CopyFiles]
+AeroDisplayDriver.dll
+
+[IndirectDisplayDriver_AddReg]
+HKR,,Security,, "D:P(A;;GA;;;SY)(A;;GA;;;BA)" ; Enforce System & Admin Access only
+
+;-------------- WDF / UMDF Service Installation
+[IndirectDisplayDriver_Install.Services]
+AddService = WUDFRd,0x000001fa,WUDFRd_ServiceInstall
+
+[WUDFRd_ServiceInstall]
+DisplayName   = %WdfRdDisplayName%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\WUDFRd.sys
+
+[IndirectDisplayDriver_Install.Wdf]
+UmdfService      = IndirectDisplayDriver, IndirectDisplayDriver_WdfInstall
+UmdfServiceOrder = IndirectDisplayDriver
+
+[IndirectDisplayDriver_WdfInstall]
+UmdfLibraryVersion = 2.25.0
+ServiceBinary      = %12%\UMDF\AeroDisplayDriver.dll
+
+[Strings]
+ProviderName     = "AeroDisplay Team"
+ManufacturerName = "AeroDisplay Inc"
+DiskName         = "AeroDisplay Installation Carrier Media"
+DeviceName       = "AeroDisplay High-Performance Virtual Adapter"
+WdfRdDisplayName = "Windows User-mode Driver Framework Reflector"

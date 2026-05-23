@@ -1,0 +1,9 @@
+# CocoaPods Podfile for AeroDisplay iOS VideoToolbox Client Decoder
+platform :ios, '13.0'
+
+target 'AeroDisplayClient' do
+  use_frameworks!
+
+  # Core targets require system-supplied frameworks: VideoToolbox, CoreMedia, Metal
+  pod 'SwiftLint', :mode => :debug # Developer tool for validation and quality constraints
+end
